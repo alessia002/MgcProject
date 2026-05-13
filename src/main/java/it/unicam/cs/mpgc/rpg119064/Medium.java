@@ -1,10 +1,6 @@
 package it.unicam.cs.mpgc.rpg119064;
 
-public class Veggente implements Ruolo, AzioneNotte{
-    public Veggente() {
-
-    }
-
+public class Medium implements Ruolo, AzioneNotte{
     @Override
     public void eseguiPotere() {
 
