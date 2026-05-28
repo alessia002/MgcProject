@@ -1,4 +1,4 @@
-package it.unicam.cs.mpgc.rpg119064;
+package it.unicam.cs.mpgc.rpg119064.model;
 
 public class Partita {
     private StatoPartita stato; //giorno, notte e finita
@@ -60,6 +60,17 @@ public class Partita {
     public void setStato(StatoPartita stato){
         this.stato = stato;
     }
+
+    public void vittoria(Giocatore giocatore){
+        giocatore.prossimoLivello();
+    }
+
+    public void sconfitta(Giocatore giocatore){
+        giocatore.regressioneLivello();
+    }
+
+
+
 
 
 
