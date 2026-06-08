@@ -1,29 +1,20 @@
 package it.unicam.cs.mpgc.rpg119064.model;
 
-import it.unicam.cs.mpgc.rpg119064.model.interfaces.AzioneGiorno;
+import it.unicam.cs.mpgc.rpg119064.model.interfaces.AzioneNotte;
 import it.unicam.cs.mpgc.rpg119064.model.interfaces.Ruolo;
 
-
-public class Contadino implements Ruolo, AzioneGiorno {
-
-    private Giocatore voto;
-
-    public Contadino() {
-    }
-
+public class Contadino implements Ruolo, AzioneNotte {
 
     @Override
-    public void eseguiPotere(Giocatore voto) {
-        this.voto = voto;
-    }
-
-
-    public Giocatore getVoto() {
-        return voto;
+    public void eseguiPotere() {
     }
 
 
     public int getPesoVoto(int livelloContadino) {
-        return (livelloContadino >= 2) ? 2 : 1;
+        if (livelloContadino >= 2) {
+            return 2;
+        } else {
+            return 1;
+        }
     }
 }

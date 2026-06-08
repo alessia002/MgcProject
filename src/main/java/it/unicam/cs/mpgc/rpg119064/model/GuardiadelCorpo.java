@@ -3,12 +3,11 @@ package it.unicam.cs.mpgc.rpg119064.model;
 import it.unicam.cs.mpgc.rpg119064.model.interfaces.AzioneNotte;
 import it.unicam.cs.mpgc.rpg119064.model.interfaces.Ruolo;
 
-
 public class GuardiadelCorpo implements Ruolo, AzioneNotte {
 
     private Giocatore bersaglioProtetto;
-    private Giocatore secondoBersaglioProtetto; //livello2
-    private boolean haProtetto; // true se ha salvato qualcuno
+    private Giocatore secondoBersaglioProtetto; //livello 2
+    private boolean haProtetto; // true se ha effettivamente salvato qualcuno questa notte
 
     public GuardiadelCorpo() {
         this.haProtetto = false;
@@ -39,7 +38,7 @@ public class GuardiadelCorpo implements Ruolo, AzioneNotte {
     public void notificaSalvataggio(int livelloGuardia, Giocatore guardia) {
         haProtetto = true;
         if (livelloGuardia >= 2) {
-            guardia.aggiungiXp(20);
+            guardia.aggiungiXp(20); // 20 invece dei 10 standard
         } else {
             guardia.aggiungiXp(10);
         }

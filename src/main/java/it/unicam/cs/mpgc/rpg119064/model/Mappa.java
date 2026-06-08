@@ -1,9 +1,0 @@
-package it.unicam.cs.mpgc.rpg119064.model;
-
-public class Mappa {
-    private int [][] dimensione;
-
-    public Mappa(int [][] dimensione) {
-        this.dimensione = dimensione;
-    }
-}

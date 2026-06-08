@@ -7,7 +7,7 @@ import it.unicam.cs.mpgc.rpg119064.model.interfaces.Ruolo;
 public class Lupo implements Ruolo, AzioneNotte {
 
     private Giocatore bersaglio;
-    private Giocatore secondoBersaglio;  //livello 2
+    private Giocatore secondoBersaglio;  // solo per Fame Nera (livello 2)
     private int turniDallUltimoAttaccoSpeciale;
     private boolean doppioAttaccoUsato;
 
@@ -36,10 +36,8 @@ public class Lupo implements Ruolo, AzioneNotte {
         return livelloGiocatore >= 2 && turniDallUltimoAttaccoSpeciale >= 3;
     }
 
-
     @Override
     public void eseguiPotere() {
-
         if (bersaglio != null && bersaglio.isVivo()) {
             bersaglio.setVivo(false);
         }
@@ -51,7 +49,7 @@ public class Lupo implements Ruolo, AzioneNotte {
         if (secondoBersaglio != null && secondoBersaglio.isVivo()) {
             secondoBersaglio.setVivo(false);
         }
-        turniDallUltimoAttaccoSpeciale = 0;
+        turniDallUltimoAttaccoSpeciale = 0; // reset del cooldown
     }
 
     public Giocatore getBersaglio() {

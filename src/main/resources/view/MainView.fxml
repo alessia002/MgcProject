@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="it.unicam.cs.mpgc.rpg119064.view.MainViewController"
+            prefWidth="900" prefHeight="600">
+
+<top>
+    <VBox fx:id="setupPane" spacing="10" style="-fx-padding: 20;">
+        <Label text="Lupus in JavaFX" style="-fx-font-size: 24; -fx-font-weight: bold;"/>
+        <Label text="Inserisci i nomi dei giocatori (uno per riga, minimo 10):"/>
+        <TextArea fx:id="nomiTextArea" prefHeight="150" prefWidth="400"
+                  promptText="Mario&#10;Luigi&#10;Peach&#10;..."/>
+        <Button fx:id="avviaButton" text="Avvia Partita" onAction="#avviaPartita"/>
+    </VBox>
+</top>
+
+<center>
+    <VBox fx:id="giocoPane" spacing="10" style="-fx-padding: 20;" visible="false">
+        <Label text="Giocatori:" style="-fx-font-weight: bold;"/>
+        <GridPane fx:id="grigliaGiocatori" hgap="10" vgap="10"/>
+    </VBox>
+</center>
+
+<bottom>
+    <VBox fx:id="azioniPane" spacing="10" style="-fx-padding: 20;" visible="false">
+        <Label text="Cronaca:" style="-fx-font-weight: bold;"/>
+        <TextArea fx:id="logArea" prefHeight="150" editable="false" wrapText="true"/>
+        <HBox spacing="10">
+            <Button fx:id="notteButton" text="Elabora Notte" onAction="#elaboraNotte"/>
+            </HBox>
+        </VBox>
+</bottom>
+</BorderPane>
