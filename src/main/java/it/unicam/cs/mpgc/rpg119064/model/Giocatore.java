@@ -1,15 +1,35 @@
 package it.unicam.cs.mpgc.rpg119064.model;
 
 import it.unicam.cs.mpgc.rpg119064.model.interfaces.Ruolo;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
+@Entity
+@Table(name = "giocatori")
 public class Giocatore {
+
+    @Id
     private String nome;
-    private boolean vivo;
-    private Ruolo ruolo;
+
     private int livello;
     private int xp;
+
+    @Transient
+    private boolean vivo;
+
+    @Transient
+    private Ruolo ruolo;
+
+    @Transient
     private boolean scoperto;
-    private Giocatore voto; // il giocatore contro cui vota di giorno
+
+    @Transient
+    private Giocatore voto;
+
+
+    public Giocatore() {}
 
     public Giocatore(String nome) {
         this.nome = nome;

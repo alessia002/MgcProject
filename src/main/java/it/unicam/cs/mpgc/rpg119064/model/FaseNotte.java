@@ -15,10 +15,10 @@ public class FaseNotte implements Fase {
     @Override
     public void elabora() {
 
-        Giocatore giocatoreCroce   = trovaGiocatoreConRuolo(Crocerossina.class);
-        Giocatore giocatoreGuardia = trovaGiocatoreConRuolo(GuardiadelCorpo.class);
-        Giocatore giocatoreLupo    = trovaGiocatoreConRuolo(Lupo.class);
-        Giocatore giocatoreMedium  = trovaGiocatoreConRuolo(Medium.class);
+        Giocatore giocatoreCroce   = trovaLaCrocerossina();
+        Giocatore giocatoreGuardia = trovaLaGuardia();
+        Giocatore giocatoreLupo    = trovaIlLupo();
+        Giocatore giocatoreMedium  = trovaIlMedium();
 
         Medium medium = null;
         if (giocatoreMedium != null && giocatoreMedium.isVivo()) {
@@ -93,10 +93,49 @@ public class FaseNotte implements Fase {
         log = log + "L'alba e' arrivata.\n";
     }
 
-    private Giocatore trovaGiocatoreConRuolo(Class<?> classe) {
-        for (Giocatore g : partita.getGiocatori()) {
-            if (g.isVivo() && g.getRuolo() != null && classe.isInstance(g.getRuolo())) {
-                return g;
+    private Giocatore trovaIlLupo() {
+        Giocatore[] giocatori = partita.getGiocatori();
+        for (int i = 0; i < giocatori.length; i++) {
+            if (giocatori[i].isVivo()) {
+                if (giocatori[i].getRuolo() instanceof Lupo) {
+                    return giocatori[i];
+                }
+            }
+        }
+        return null;
+    }
+
+    private Giocatore trovaLaGuardia() {
+        Giocatore[] giocatori = partita.getGiocatori();
+        for (int i = 0; i < giocatori.length; i++) {
+            if (giocatori[i].isVivo()) {
+                if (giocatori[i].getRuolo() instanceof GuardiadelCorpo) {
+                    return giocatori[i];
+                }
+            }
+        }
+        return null;
+    }
+
+    private Giocatore trovaLaCrocerossina() {
+        Giocatore[] giocatori = partita.getGiocatori();
+        for (int i = 0; i < giocatori.length; i++) {
+            if (giocatori[i].isVivo()) {
+                if (giocatori[i].getRuolo() instanceof Crocerossina) {
+                    return giocatori[i];
+                }
+            }
+        }
+        return null;
+    }
+
+    private Giocatore trovaIlMedium() {
+        Giocatore[] giocatori = partita.getGiocatori();
+        for (int i = 0; i < giocatori.length; i++) {
+            if (giocatori[i].isVivo()) {
+                if (giocatori[i].getRuolo() instanceof Medium) {
+                    return giocatori[i];
+                }
             }
         }
         return null;

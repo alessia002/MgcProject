@@ -17,8 +17,8 @@ public class Narratore {
 
     public void nuovaPartita(String[] nomi) {
         partita = new Partita(nomi.length);
-        for (String nome : nomi) {
-            partita.aggiungiGiocatore(nome);
+        for (int i = 0; i < nomi.length; i++) {
+            partita.aggiungiGiocatore(nomi[i]);
         }
         assegnaRuoli.assegna(partita.getGiocatori());
         faseNotte = new FaseNotte(partita);
@@ -42,9 +42,10 @@ public class Narratore {
     public void verificaVittoria() {
         int lupiVivi = 0;
         int umaniVivi = 0;
-        for (Giocatore g : partita.getGiocatori()) {
-            if (!g.isVivo()) continue;
-            if (g.getRuolo() instanceof Lupo) {
+        Giocatore[] giocatori = partita.getGiocatori();
+        for (int i = 0; i < giocatori.length; i++) {
+            if (!giocatori[i].isVivo()) continue;
+            if (giocatori[i].getRuolo() instanceof Lupo) {
                 lupiVivi++;
             } else {
                 umaniVivi++;
