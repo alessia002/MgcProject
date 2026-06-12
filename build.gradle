@@ -31,6 +31,6 @@ dependencies {
 test {
     useJUnitPlatform()
 }
-c
+
 application {
     mainClass = 'it.unicam.cs.mpgc.rpg119064.view.Launcher'}
