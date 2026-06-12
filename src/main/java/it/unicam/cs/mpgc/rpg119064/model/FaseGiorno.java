@@ -1,6 +1,7 @@
 package it.unicam.cs.mpgc.rpg119064.model;
 
 import it.unicam.cs.mpgc.rpg119064.model.interfaces.Fase;
+import java.util.HashMap;
 
 public class FaseGiorno implements Fase {
 
@@ -15,31 +16,55 @@ public class FaseGiorno implements Fase {
     @Override
     public void elabora() {
         Giocatore[] giocatori = partita.getGiocatori();
+
+        // HashMap per contare i voti: chiave = giocatore votato, valore = numero voti
+        HashMap<Giocatore, Integer> conteggioVoti = new HashMap<>();
+
+        for (int i = 0; i < giocatori.length; i++) {
+            if (!giocatori[i].isVivo()) {
+                continue;
+            }
+            if (giocatori[i].getVoto() != null) {
+                Giocatore bersaglio = giocatori[i].getVoto();
+                if (conteggioVoti.containsKey(bersaglio)) {
+                    conteggioVoti.put(bersaglio, conteggioVoti.get(bersaglio) + 1);
+                } else {
+                    conteggioVoti.put(bersaglio, 1);
+                }
+            }
+        }
+
+        // Trova il piu' votato
         Giocatore piuVotato = null;
         int massimo = 0;
         boolean pareggio = false;
 
-        for (Giocatore g : giocatori) {
-            if (!g.isVivo()) continue;
-            int voti = contaVoti(g);
+        for (Giocatore g : conteggioVoti.keySet()) {
+            int voti = conteggioVoti.get(g);
             if (voti > massimo) {
                 massimo = voti;
                 piuVotato = g;
                 pareggio = false;
-            } else if (voti == massimo && massimo > 0) {
+            } else if (voti == massimo) {
                 pareggio = true;
             }
         }
 
+        // In caso di pareggio il Leader decide
         if (pareggio) {
             log = log + "Pareggio! Il Leader decide...\n";
-            for (Giocatore g : giocatori) {
-                if (!g.isVivo()) continue;
-                if (g.getRuolo() instanceof Contadino) {
-                    Contadino c = (Contadino) g.getRuolo();
-                    if (c.getPesoVoto(g.getLivello()) == 2 && g.getVoto() != null) {
-                        piuVotato = g.getVoto();
-                        log = log + g.getNome() + " (Leader) ha deciso: " + piuVotato.getNome() + " al rogo!\n";
+            for (int i = 0; i < giocatori.length; i++) {
+                if (!giocatori[i].isVivo()) {
+                    continue;
+                }
+                if (giocatori[i].getRuolo() instanceof Contadino) {
+                    Contadino c = (Contadino) giocatori[i].getRuolo();
+                    int peso = c.getPesoVoto(giocatori[i].getLivello());
+                    if (peso == 2) {
+                        if (giocatori[i].getVoto() != null) {
+                            piuVotato = giocatori[i].getVoto();
+                            log = log + giocatori[i].getNome() + " (Leader) ha deciso: " + piuVotato.getNome() + " al rogo!\n";
+                        }
                     }
                 }
             }
@@ -50,22 +75,13 @@ public class FaseGiorno implements Fase {
             log = log + piuVotato.getNome() + " e' stato mandato al rogo!\n";
         }
 
-        for (Giocatore g : giocatori) {
-            g.resetVoto();
+        for (int i = 0; i < giocatori.length; i++) {
+            giocatori[i].resetVoto();
         }
 
         partita.setStato(StatoPartita.NOTTE);
     }
 
-    private int contaVoti(Giocatore bersaglio) {
-        int count = 0;
-        for (Giocatore g : partita.getGiocatori()) {
-            if (g.isVivo() && g.getVoto() != null && g.getVoto().equals(bersaglio)) {
-                count++;
-            }
-        }
-        return count;
-    }
 
     public String getLog() {
         return log;

@@ -2,6 +2,8 @@ package it.unicam.cs.mpgc.rpg119064.model;
 
 import it.unicam.cs.mpgc.rpg119064.model.interfaces.AssegnaRuoli;
 
+import java.util.Arrays;
+
 public class Narratore {
 
     private Partita partita;
@@ -40,17 +42,18 @@ public class Narratore {
     }
 
     public void verificaVittoria() {
-        int lupiVivi = 0;
-        int umaniVivi = 0;
         Giocatore[] giocatori = partita.getGiocatori();
-        for (int i = 0; i < giocatori.length; i++) {
-            if (!giocatori[i].isVivo()) continue;
-            if (giocatori[i].getRuolo() instanceof Lupo) {
-                lupiVivi++;
-            } else {
-                umaniVivi++;
-            }
-        }
+
+        // Stream per contare lupi e umani vivi
+        long lupiVivi = Arrays.stream(giocatori)
+                .filter(g -> g.isVivo())
+                .filter(g -> g.getRuolo() instanceof Lupo)
+                .count();
+
+        long umaniVivi = Arrays.stream(giocatori)
+                .filter(g -> g.isVivo())
+                .filter(g -> !(g.getRuolo() instanceof Lupo))
+                .count();
 
         if (lupiVivi == 0) {
             log = log + "Gli Umani hanno vinto!\n";

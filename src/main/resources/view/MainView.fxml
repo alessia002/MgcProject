@@ -1,40 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="it.unicam.cs.mpgc.rpg119064.view.MainViewController"
+      prefWidth="900" prefHeight="600"
+      spacing="10" style="-fx-padding: 10;">
 
-<BorderPane xmlns:fx="http://javafx.com/fxml"
-            fx:controller="it.unicam.cs.mpgc.rpg119064.view.MainViewController"
-            prefWidth="900" prefHeight="600">
-
-<top>
-    <VBox fx:id="setupPane" spacing="10" style="-fx-padding: 20;">
-        <Label text="Lupus in JavaFX" style="-fx-font-size: 24; -fx-font-weight: bold;"/>
+    <VBox fx:id="setupPane" spacing="10">
+        <Label text="Lupus in JavaFX" style="-fx-font-size: 20; -fx-font-weight: bold;"/>
         <Label text="Inserisci i nomi dei giocatori (uno per riga, minimo 10):"/>
-        <TextArea fx:id="nomiTextArea" prefHeight="150" prefWidth="400"
+        <TextArea fx:id="nomiTextArea" prefHeight="120" prefWidth="400"
                   promptText="Mario&#10;Luigi&#10;Peach&#10;..."/>
         <Button fx:id="avviaButton" text="Avvia Partita" onAction="#avviaPartita"/>
     </VBox>
-</top>
 
-<center>
-    <VBox fx:id="giocoPane" spacing="10" style="-fx-padding: 20;" visible="false">
-        <Label text="Giocatori:" style="-fx-font-weight: bold;"/>
-        <GridPane fx:id="grigliaGiocatori" hgap="10" vgap="10"/>
+    <VBox fx:id="passaDispositivoPane" visible="false" spacing="20"
+          style="-fx-background-color: black; -fx-padding: 40; -fx-alignment: center;"
+          prefHeight="200">
+        <Label fx:id="passaLabel" style="-fx-text-fill: white; -fx-font-size: 18; -fx-font-weight: bold;"/>
+        <Label fx:id="turnoLabel" style="-fx-text-fill: white; -fx-font-size: 13;"/>
+        <Button text="Sono pronto" onAction="#confermaTurno"/>
     </VBox>
-</center>
 
-<bottom>
-    <VBox fx:id="azioniPane" spacing="10" style="-fx-padding: 20;" visible="false">
+    <VBox fx:id="mostraRuoloPane" visible="false" spacing="20"
+          style="-fx-background-color: black; -fx-padding: 40; -fx-alignment: center;"
+          prefHeight="200">
+        <Label fx:id="ruoloLabel" style="-fx-text-fill: white; -fx-font-size: 22; -fx-font-weight: bold;"/>
+        <Button text="Ho visto" onAction="#hoVisto"/>
+    </VBox>
+
+    <HBox fx:id="azioniPane" visible="false" spacing="10">
+        <Button fx:id="notteButton" text="Elabora Notte" onAction="#elaboraNotte"/>
+        <Button fx:id="giornoButton" text="Risolvi Voto" onAction="#risolviVoto"/>
+    </HBox>
+
+    <VBox fx:id="giocoPane" spacing="5" visible="false">
+        <Label text="Giocatori:" style="-fx-font-weight: bold;"/>
+        <GridPane fx:id="grigliaGiocatori" hgap="8" vgap="8"/>
+    </VBox>
+
+    <VBox fx:id="logPane" visible="false" spacing="5">
         <Label text="Cronaca:" style="-fx-font-weight: bold;"/>
-        <TextArea fx:id="logArea" prefHeight="150" editable="false" wrapText="true"/>
-        <HBox spacing="10">
-            <Button fx:id="notteButton" text="Elabora Notte" onAction="#elaboraNotte"/>
-            </HBox>
-        </VBox>
-</bottom>
-</BorderPane>
+        <TextArea fx:id="logArea" prefHeight="100" editable="false" wrapText="true"/>
+    </VBox>
+
+</VBox>
