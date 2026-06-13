@@ -16,7 +16,7 @@ Il sistema salva i profili dei giocatori con XP e livelli tra una partita e l'al
 ### Istruzioni
 
 ```bash
-git clone <url-del-repository>
+git clone <https://github.com/alessia002/MgcProject.git>
 cd MgcProject
 ```
 
